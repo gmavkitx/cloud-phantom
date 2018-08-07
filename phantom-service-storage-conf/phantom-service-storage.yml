@@ -1,0 +1,41 @@
+#服务端口
+server:
+  port: 8002
+
+#设置actuator开关
+management:
+  security:
+    enabled: false
+
+#KingBoy自定义配置
+king:
+  #controller/service/repository的日志打印功能
+  log:
+    #是否启用
+    enabled: true
+  #swagger程序文档功能
+  swagger:
+    #是否启用
+    enabled: true
+    #controller包位置
+    base-package: com.kingboy.controller
+    title: 文件上传接口文档
+    description: 主要包含fileupload接口
+    version: V1.0
+
+spring:
+  #配置上传文件
+  http:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 500MB
+  #zipkin的采样率
+  sleuth:
+    sampler:
+      percentage: 1.0
+  #rabbitmq配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest

@@ -1,0 +1,67 @@
+#服务端口
+server:
+  port: 8001
+
+#设置actuator开关
+management:
+  security:
+    enabled: false
+
+spring:
+  #zipkin的采样率
+  sleuth:
+    sampler:
+      percentage: 1.0
+  #rabbitmq配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+#启用hystrix
+feign:
+  hystrix:
+    enabled: true
+  #启用压缩
+  compression:
+    request:
+      #压缩的类型
+      mime-types: application/json
+      #压缩阀值，1k
+      min-request-size: 1024
+
+#针对每个服务设置ribbon超时和请求重试
+phantom-service-provider:
+  ribbon:
+    ConnectTimeout: 500
+    ReadTimeout: 3000
+    OkToRetryOnAllOperation: true
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 2
+
+
+#关hystrix闭超时检查,否则第一次的服务间请求会失败
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+#KingBoy自定义配置
+king:
+  #controller/service/repository的日志打印功能
+  log:
+    #是否启用
+    enabled: true
+  #swagger程序文档功能
+  swagger:
+    #是否启用
+    enabled: true
+    #controller包位置
+    base-package: com.kingboy.controller
+    title: 消费模块接口文档
+    description: 主要包含UserController示例
+    version: V1.0
+  refresh: changeValueTwo

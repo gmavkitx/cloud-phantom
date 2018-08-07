@@ -1,0 +1,57 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.kingboy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springCloudVersion = 'Dalston.SR4'
+    adminVersion = '1.5.5'
+}
+
+
+dependencies {
+
+    compile (
+        //核心依赖
+        "de.codecentric:spring-boot-admin-server:$adminVersion",
+        "de.codecentric:spring-boot-admin-server-ui:$adminVersion",
+        //使admin具备hystrix仪表盘功能
+        "de.codecentric:spring-boot-admin-server-ui-turbine:$adminVersion",
+        "org.jolokia:jolokia-core",
+        //注册中心
+        "org.springframework.cloud:spring-cloud-starter-eureka",
+        //基础依赖
+        "org.springframework.boot:spring-boot-starter-actuator",
+    )
+
+    testCompile(
+        "org.springframework.boot:spring-boot-starter-test"
+    )
+
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}

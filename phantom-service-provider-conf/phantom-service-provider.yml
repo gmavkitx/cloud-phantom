@@ -1,0 +1,74 @@
+#服务端口
+server:
+  port: 8000
+
+
+#设置actuator开关
+management:
+  security:
+    enabled: false
+
+#KingBoy自定义配置
+king:
+  #controller/service/repository的日志打印功能
+  log:
+    #是否启用
+    enabled: true
+  #swagger程序文档功能
+  swagger:
+    #是否启用
+    enabled: true
+    #controller包位置
+    base-package: com.kingboy.controller
+    title: 生产模块接口文档
+    description: 主要包含UserController接口
+    version: V1.0
+
+spring:
+  #zipkin的采样率
+  sleuth:
+    sampler:
+      percentage: 1.0
+  #rabbitmq配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  #jpa配置
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  #数据源配置
+  datasource:
+    #执行的建表语句
+    schema: classpath:schema.sql
+    #执行的sql语句
+    data: classpath:data.sql
+    #主配置
+    url: jdbc:mysql:///provider?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    #其它配置
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 30
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,slf4j
+
+#设置mybatis结果自动驼峰映射
+mybatis:
+  configuration:
+     map-underscore-to-camel-case: true

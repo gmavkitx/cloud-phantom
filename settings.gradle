@@ -1,0 +1,19 @@
+rootProject.name = 'cloud-phantom'
+
+//微服务项目
+include 'phantom-server-admin'
+include 'phantom-server-eureka'
+include 'phantom-server-turbine'
+include 'phantom-server-hystrix'
+include 'phantom-server-config'
+include 'phantom-server-zipkin'
+include 'phantom-gateway-zuul'
+include 'phantom-gateway-zuul-conf'
+include 'phantom-service-provider'
+include 'phantom-service-consumer'
+include 'phantom-service-storage'
+include 'phantom-service-provider-conf'
+include 'phantom-service-consumer-conf'
+include 'phantom-service-storage-conf'
+//依赖项目
+include 'common'

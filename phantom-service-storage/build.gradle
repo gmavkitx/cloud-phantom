@@ -1,0 +1,76 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.kingboy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+ext {
+    springCloudVersion = 'Dalston.SR4'
+    druidVersion = '1.1.5'
+    mybatisVersion = '1.3.1'
+    pagehelperVersion = '4.1.0'
+    swaggerVersion = '2.7.0'
+}
+
+dependencies {
+
+    compile (
+            //spring mvc
+            "org.springframework.boot:spring-boot-starter-web",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310",
+            //服务间调用依赖
+            "org.springframework.cloud:spring-cloud-starter-feign",
+            //服务注册中心
+            "org.springframework.cloud:spring-cloud-starter-eureka",
+            //配置中心，与重试机制的依赖
+            "org.springframework.cloud:spring-cloud-starter-bus-amqp",
+            "org.springframework.cloud:spring-cloud-starter-config",
+            "org.springframework.retry:spring-retry",
+            "org.springframework.boot:spring-boot-starter-aop",
+            //hystrix监控
+            "org.springframework.cloud:spring-cloud-starter-hystrix",
+            "org.springframework.cloud:spring-cloud-netflix-hystrix-stream",
+            //提供跟踪信息(zipkin)
+            "org.springframework.cloud:spring-cloud-sleuth-stream",
+            "org.springframework.cloud:spring-cloud-starter-sleuth",
+            //基础依赖
+            "org.springframework.boot:spring-boot-starter-actuator",
+            //swagger测试页
+            "io.springfox:springfox-swagger-ui:${swaggerVersion}",
+            "io.springfox:springfox-swagger2:${swaggerVersion}",
+    )
+
+    compile project (
+            ":common"
+    )
+
+    testCompile (
+            "org.springframework.boot:spring-boot-starter-test"
+    )
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}

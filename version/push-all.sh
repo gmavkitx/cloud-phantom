@@ -1,0 +1,1 @@
+git submodule foreach "git add .;git commit -m 'auto push by shell';git push"

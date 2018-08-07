@@ -1,0 +1,40 @@
+#服务端口
+server:
+  port: 7006
+
+#设置actuator开关
+management:
+  security:
+    enabled: false
+
+#config服务自身配置
+spring:
+  #应用名称
+  application:
+    name: phantom-server-admin
+  boot:
+    admin:
+      turbine:
+        clusters: default
+        url: http://localhost:7004/turbine.stream
+      #设置不监控某些服务
+      discovery:
+        ignored-services: phantom-server-config,phantom-server-admin
+
+#注册中心配置
+eureka:
+  auth:
+    user: kingboy
+    password: 123456
+  client:
+    service-url:
+      defaultZone: http://${eureka.auth.user}:${eureka.auth.password}@localhost:7000/eureka/,http://${eureka.auth.user}:${eureka.auth.password}@eureka-master:7001/eureka/,http://${eureka.auth.user}:${eureka.auth.password}@eureka-slave:7002/eureka/
+  instance:
+    #使用IP进行注册
+    prefer-ip-address: true
+    #配置实例的注册ID
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    #心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-renewal-interval-in-seconds: 5
+    #发呆时间，即服务续约到期时间（缺省为90s）
+    lease-expiration-duration-in-seconds: 10

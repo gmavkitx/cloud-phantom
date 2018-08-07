@@ -1,0 +1,58 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.kingboy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+ext {
+    springCloudVersion = 'Dalston.SR4'
+    EncodeVersion='4.11'
+}
+
+dependencies {
+
+    compile (
+        //核心功能
+        "org.springframework.cloud:spring-cloud-config-server",
+        //注册中心
+        "org.springframework.cloud:spring-cloud-starter-eureka",
+        //具备认证功能
+        "org.springframework.boot:spring-boot-starter-security",
+        //具备跟踪功能
+        "org.springframework.cloud:spring-cloud-starter-sleuth",
+        //通过消息队列刷新服务配置
+        "org.springframework.cloud:spring-cloud-starter-bus-amqp",
+        //基础依赖
+        "org.springframework.boot:spring-boot-starter-actuator",
+    )
+
+    testCompile (
+        "org.springframework.boot:spring-boot-starter-test"
+    )
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}

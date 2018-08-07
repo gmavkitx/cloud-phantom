@@ -1,0 +1,59 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.8.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.kingboy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+ext {
+    springCloudVersion = 'Dalston.SR4'
+    esVersion= '1.16.2'
+}
+
+dependencies {
+
+    compile(
+        //核心功能
+        "org.springframework.cloud:spring-cloud-starter-sleuth",
+        "org.springframework.cloud:spring-cloud-sleuth-zipkin-stream",
+        "org.springframework.cloud:spring-cloud-stream-binder-rabbit",
+        "io.zipkin.java:zipkin-autoconfigure-ui",
+        //保存到ES  目前支持2 - 5的ES版本
+        "io.zipkin.java:zipkin-autoconfigure-storage-elasticsearch-http:$esVersion",
+        //保存到数据库需要如下依赖
+        //"mysql:mysql-connector-java",
+        //"org.springframework.boot:spring-boot-starter-jdbc",
+        //基础依赖
+        "org.springframework.boot:spring-boot-starter-actuator",
+    )
+
+    testCompile (
+        "org.springframework.boot:spring-boot-starter-test"
+    )
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}

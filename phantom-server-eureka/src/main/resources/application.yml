@@ -1,0 +1,39 @@
+spring:
+  #应用名称
+  application:
+    name: phantom-server-eureka
+  profiles:
+    active: default
+
+#设置actuator开关
+management:
+  security:
+    enabled: false
+
+#eureka配置
+eureka:
+  server:
+    #设置扫描失效服务的间隔时间
+    eviction-interval-timer-in-ms: 20000
+    enable-self-preservation: true
+
+#安全配置
+security:
+  basic:
+    enabled: true
+  user:
+    name: kingboy
+    password: 123456
+
+#默认启动节点
+---
+server:
+  port: 7000
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

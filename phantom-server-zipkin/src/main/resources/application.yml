@@ -1,0 +1,37 @@
+server:
+  port: 7007
+
+spring:
+  application:
+    name: phantom-server-zipkin
+  #rabbitmq配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+#保存到ES
+zipkin:
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      cluster: elasticsearch
+      hosts: http://172.16.160.176:9200
+      index: zipkin
+      index-shards: 5
+      index-replicas: 1
+#保存到数据库需要如下配置
+#  #datasouce
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/zipkin?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+#    username: root
+#    password: 123456
+#    schema: classpath:zipkin.sql
+#    continue-on-error: true
+#    driver-class-name: com.mysql.jdbc.Driver
+##表示zipkin数据存储方式是mysql
+#zipkin:
+#  storage:
+#    type: mysql
+
+

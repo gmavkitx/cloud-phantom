@@ -1,0 +1,42 @@
+server:
+  port: 7008
+
+#设置actuator开关
+management:
+  security:
+    enabled: false
+
+#设置ribbon超时和请求重试
+ribbon:
+  ConnectTimeout: 500
+  ReadTimeout: 3000
+
+#关闭hystrix超时检查,否则第一次的服务间请求会失败
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+zuul:
+  #开启重试机制
+  retryable: true
+  #解决会话状态无法保持问题
+  sensitive-headers:
+  #解决重定向丢失host问题
+  add-host-header: true
+  #自定义服务别名
+  routes:
+    phantom-service-consumer: /consumer/**
+    phantom-service-provider: /provider/**
+    phantom-service-storage: /storage/**
+  #指定要忽略的服务,'*'忽略所有服务
+  ignored-services: phantom-server-config
+  #忽略正则匹配的url
+  ignored-patterns: /**/admin/**
+
+#日志配置 改为DEBUG可显示请求过程
+logging:
+  level:
+    com.netflix: INFO
