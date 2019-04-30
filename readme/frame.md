@@ -108,13 +108,13 @@
 
 > 1. 关于项目的git管理
 
-    - 仓库结构，画图解释。
-    - 克隆 git clone https://github.com/KingBoyWorld/cloud-phantom.git;git submodule init;git submodule update;
-    - 整体切换分支，git module foreach git checkout master
-    - 提交单个仓库的变更
-        - 先进入变更的模块，git add .;git commit -m "提交信息";git pull;git push
-        - 进入根目录：git add .;git commit -m "提交信息";git pull;git push
-    - 提交多个仓库的变更
+- 仓库结构，画图解释。
+- 克隆 git clone https://github.com/KingBoyWorld/cloud-phantom.git;git submodule init;git submodule update;
+- 整体切换分支，git module foreach git checkout master
+- 提交单个仓库的变更
+  - 先进入变更的模块，git add .;git commit -m "提交信息";git pull;git push
+  - 进入根目录：git add .;git commit -m "提交信息";git pull;git push
+- 提交多个仓库的变更
         - 在根目录下执行: git submodule foreach "git add .;git commit -m '提交信息';git pull;git push"
 2. 异常怎么使用
     - 异常体系的流程图
